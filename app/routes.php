@@ -13,5 +13,27 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+    return View::make('hello');
+});
+
+Route::group(array('prefix' => 'admin'), function()
+{
+    Route::get('/', 'AdminController@getIndex');
+
+    Route::get('user', function()
+    {
+        return 'users';
+    });
+
+});
+
+Route::group(array('prefix' => 'login'), function()
+{
+    Route::get('/', 'AuthorityController@getSignin');
+
+    Route::get('user', function()
+    {
+        return 'users';
+    });
+
 });
