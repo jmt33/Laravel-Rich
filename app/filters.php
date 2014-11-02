@@ -88,3 +88,23 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+
+Route::filter('auth.admin', function()  
+{
+	if (Auth::guest())
+	{
+		if (Request::ajax())
+		{
+			return Response::make('Unauthorized', 401);
+		}
+		else
+		{
+			return Redirect::route('admin.login');
+		}
+	}
+	
+    // if ( ! Sentry::check()) {
+    //     return Redirect::route('admin.login');
+    // }
+});
