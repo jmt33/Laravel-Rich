@@ -41,9 +41,12 @@
 @stop
 
 @section('container')
-
+<div class="login">
     {{ Form::open(array('class' => 'form-signin', 'role' => 'form')) }}
         <h2 class="form-signin-heading">用户登录</h2>
+        @if ($errors->has('login'))
+            <div class="alert alert-error">{{ $errors->first('login', ':message') }}</div>
+        @endif
         <input name="email" value="{{ Input::old('email') }}" type="text" class="form-control" placeholder="邮箱" required autofocus>
         <input name="password" type="password" class="form-control" placeholder="密码" required>
         <label class="checkbox">
@@ -53,5 +56,5 @@
         
         <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
     {{ Form::close() }}
-
+</div>
 @stop

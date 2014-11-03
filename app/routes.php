@@ -16,9 +16,11 @@ Route::get('/', function()
     return View::make('hello');
 });
 
-Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
+Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
 {
     Route::get('/', 'AdminController@getIndex');
+
+    Route::get('index', 'AdminController@getIndex');
 
     Route::get('user', function()
     {

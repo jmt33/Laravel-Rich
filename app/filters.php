@@ -92,19 +92,8 @@ Route::filter('csrf', function()
 
 Route::filter('auth.admin', function()  
 {
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		else
-		{
-			return Redirect::route('admin.login');
-		}
-	}
-	
-    // if ( ! Sentry::check()) {
-    //     return Redirect::route('admin.login');
-    // }
+
+    if ( ! Sentry::check()) {
+        return Redirect::guest('login');
+    }
 });

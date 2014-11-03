@@ -5,7 +5,7 @@ class AdminController extends BaseController
 
     public function __construct()
     {
-         $this->beforeFilter('auth', array('except' => 'getLogin'));
+         //$this->beforeFilter('auth', array('except' => 'getLogin'));
     }
     /**
      * 后台首页

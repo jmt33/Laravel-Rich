@@ -17,29 +17,49 @@ class AuthorityController extends BaseController
      */
     public function postSignin()
     {
-        // 凭证
-        $credentials = array('email'=>Input::get('email'), 'password'=>Input::get('password'));
-        // 是否记住登录状态
-        $remember    = Input::get('remember-me', 0);
-        // 验证登录
-        if (Auth::validate($credentials)) {
-            // 验证成功，确认是否已经激活
-            $user = Auth::getLastAttempted();
-            if (is_null($user->activated_at)) {
-                // 未激活，跳回
-                return Redirect::back()
-                    ->withInput()
-                    ->withErrors(array('attempt' => '“邮箱”未激活，请打开您邮箱中的激活邮件，完成激活操作。'));
+        $credentials = array(
+          'email'    => Input::get('email'),
+          'password' => Input::get('password')
+        );
+
+        try {
+            $user = Sentry::authenticate($credentials, false);
+
+            if ($user)
+            {
+                //return Redirect::intended();
+                return Redirect::route('admin.index');
             }
-            // 已激活，手动登录，跳回之前被拦截的页面
-            Auth::login($user, $remember);
-            return Redirect::intended();
-        } else {
-            // 登录失败，跳回
+        } catch(\Exception $e) {
             return Redirect::back()
-                ->withInput()
-                ->withErrors(array('attempt' => '“邮箱”或“密码”错误，请重新登录。'));
+            ->withInput()->withErrors(
+                array('login' => $e->getMessage())
+            );
         }
+
+        // // 凭证
+        // $credentials = array('email'=>Input::get('email'), 'password'=>Input::get('password'));
+        // // 是否记住登录状态
+        // $remember    = Input::get('remember-me', 0);
+        // // 验证登录
+        // if (Auth::validate($credentials)) {
+        //     // 验证成功，确认是否已经激活
+        //     $user = Auth::getLastAttempted();
+        //     if (is_null($user->activated_at)) {
+        //         // 未激活，跳回
+        //         return Redirect::back()
+        //             ->withInput()
+        //             ->withErrors(array('attempt' => '“邮箱”未激活，请打开您邮箱中的激活邮件，完成激活操作。'));
+        //     }
+        //     // 已激活，手动登录，跳回之前被拦截的页面
+        //     Auth::login($user, $remember);
+        //     return Redirect::intended();
+        // } else {
+        //     // 登录失败，跳回
+        //     return Redirect::back()
+        //         ->withInput()
+        //         ->withErrors(array('attempt' => '“邮箱”或“密码”错误，请重新登录。'));
+        // }
     }
 
     /**
