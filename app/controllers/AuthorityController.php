@@ -28,7 +28,7 @@ class AuthorityController extends BaseController
             if ($user)
             {
                 //return Redirect::intended();
-                return Redirect::route('admin.index');
+                return Redirect::guest('admin/index');
             }
         } catch(\Exception $e) {
             return Redirect::back()

@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('promote'),
+	'local' => array('mtao-OptiPlex-390'),
 
 ));
 
