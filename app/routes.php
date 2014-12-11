@@ -11,23 +11,42 @@
 |
 */
 
-Route::get('/', function()
-{
-    return View::make('hello');
-});
+// Route::get('/', function()
+// {
+//     return View::make('hello');
+// });
 
-Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
-{
-    Route::get('/', 'AdminController@getIndex');
+// // Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@getLogout'));
+// // Route::get('admin/login', array('as' => 'admin.login', 'uses' => 'App\Controllers\Admin\AuthController@getLogin'));
+// // Route::post('admin/login', array('as' => 'admin.login.post', 'uses' => 'App\Controllers\Admin\AuthController@postLogin'));
 
-    Route::get('index', 'AdminController@getIndex');
 
-    Route::get('user', function()
-    {
-        return 'users';
-    });
+// Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
+// {
+//     // Route::get(
+//     //     '/',
+//     //     array(
+//     //         'as' => 'admin',
+//     //         'uses' => 'AdminController@getIndex'
+//     //     )
+//     // );
 
-});
+//     // Route::get(
+//     //     'index',
+//     //     array(
+//     //         'as' => 'admin.index',
+//     //         'uses' => 'AdminController@getIndex'
+//     //     )
+//     // );
+
+//     Route::any('/', 'App\Controllers\Admin\PagesController@index');
+//     Route::any('index', 'App\Controllers\Admin\PagesController@index');
+//     Route::resource('articles', 'App\Controllers\Admin\ArticlesController');
+//     Route::resource('pages', 'App\Controllers\Admin\PagesController');
+
+    
+//     //Route::resource('pages', 'App\Controllers\Admin\PagesController');
+// });
 
 Route::group(array('prefix' => 'login'), function()
 {
@@ -38,9 +57,21 @@ Route::group(array('prefix' => 'login'), function()
         'AuthorityController@postSignin'
     );
 
-    // Route::get('user', function()
-    // {
-    //     return 'users';
-    // });
+});
 
+
+Route::get('/', function()
+{
+    return View::make('hello');
+});
+
+Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@getLogout'));
+Route::get('admin/login', array('as' => 'admin.login', 'uses' => 'App\Controllers\Admin\AuthController@getLogin'));
+Route::post('admin/login', array('as' => 'admin.login.post', 'uses' => 'App\Controllers\Admin\AuthController@postLogin'));
+
+Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
+{
+    Route::any('/', 'App\Controllers\Admin\PagesController@index');
+    Route::resource('articles', 'App\Controllers\Admin\ArticlesController');
+    Route::resource('pages', 'App\Controllers\Admin\PagesController');
 });
