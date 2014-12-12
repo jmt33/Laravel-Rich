@@ -6,6 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"cartalyst/sentry": "2.1.4",
+		"edvinaskrucas/notification": "3.0.1",
 		"fzaninotto/faker": "v1.3.0"
 	},
 	"require-dev": {
