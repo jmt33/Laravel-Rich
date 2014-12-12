@@ -77,6 +77,13 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
         'index',
         'App\Controllers\Admin\PagesController'
     );
+    
+    Route::resource('pages', 'App\Controllers\Admin\PagesController');
+    
+    Route::resource(
+        'articles',
+        'App\Controllers\Admin\ArticlesController'
+    );
 
     // Route::any(
     //     '/',
