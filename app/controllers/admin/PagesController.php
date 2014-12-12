@@ -38,9 +38,43 @@ class PagesController extends \BaseController {
  
         return Redirect::back()->withInput()->withErrors($validation->errors);
     }
-    
+
     public function show($id)
     {
         return \View::make('admin.pages.show')->with('page', Page::find($id))->withAuthor(Sentry::findUserById(Page::find($id)->user_id)->name);
+    }
+
+    public function edit($id)
+    {
+        return \View::make('admin.pages.edit')->with('page', Page::find($id));
+    }
+
+    public function update($id)
+    {
+        $validation = new PageValidator;
+
+        if ($validation->passes())
+        {
+                        $page          = Page::find($id);
+                        $page->title   = Input::get('title');
+                        $page->body    = Input::get('body');
+                        $page->user_id = Sentry::getUser()->id;
+            $page->save();
+
+            Notification::success('更新页面成功！');
+
+            return Redirect::route('admin.pages.edit', $page->id);
+        }
+
+        return Redirect::back()->withInput()->withErrors($validation->errors);
+    }
+
+    public function destroy($id)
+    {
+        $page = Page::find($id);
+        $page->delete();
+
+        Notification::success('删除成功！');
+        return Redirect::route('admin.pages.index');
     }
 }
