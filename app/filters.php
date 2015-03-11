@@ -89,11 +89,9 @@ Route::filter('csrf', function()
 	}
 });
 
-
-Route::filter('auth.admin', function()  
+Route::filter('auth.admin', function()
 {
-
-    if ( ! Sentry::check()) {
-        return Redirect::guest('login');
-    }
+	if ( ! Sentry::check()) {
+		return Redirect::route('admin.login');
+	}
 });
