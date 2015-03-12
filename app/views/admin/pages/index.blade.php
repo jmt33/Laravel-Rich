@@ -1,4 +1,4 @@
-@extends('l.admin', array('active' => 'admin'))
+@extends('l.index')
 
 @section('container')
 

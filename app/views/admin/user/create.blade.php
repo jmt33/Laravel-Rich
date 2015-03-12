@@ -1,99 +1,45 @@
-@extends('l.admin', array('active' => $resource))
-
-@section('title') @parent 添加新{{ $resourceName }} @stop
-
-@section('beforeStyle')
-    @parent
-    {{ style('bootstrap-3-switch') }}
-@stop
-
-@section('style')
-.nav-tabs>li.active>a
-{
-    background-color: #f8f8f8 !important;
-}
-@parent @stop
+@extends('l.index')
 
 @section('container')
 
-    @include('w.notification')
-    <h3>
-        添加新{{ $resourceName }}
-        <div class="pull-right">
-            <a href="{{ route($resource.'.index') }}" class="btn btn-sm btn-default">
-                &laquo; 返回{{ $resourceName }}列表
-            </a>
-        </div>
-    </h3>
+  <div id="register" class="register">
 
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab-general" data-toggle="tab">主要内容</a></li>
-        <li><a href="#tab-meta-data" data-toggle="tab">权限相关</a></li>
-    </ul>
+    {{ Form::open(array('url' => 'admin/register', 'class' => 'am-form')) }}
+        @if ($errors->has('register'))
+          <div class="form-group has-error">
+              <label for="inputError" class="control-label">{{ $errors->first('register', ':message') }}</label>
+          </div>
+        @endif
 
-    <form class="form-horizontal" method="post" action="{{ route($resource.'.store') }}" autocomplete="off"
-        style="background:#f8f8f8;padding:1em;border:1px solid #ddd;border-top:0;">
-        <!-- CSRF Token -->
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-
-        <!-- Tabs Content -->
-        <div class="tab-content">
-
-            <!-- General tab -->
-            <div class="tab-pane active" id="tab-general" style="margin:0 1em;">
-                
-                <div class="form-group">
-                    <label for="email">邮箱</label>
-                    {{ $errors->first('email', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                    <input class="form-control" type="text" name="email" id="email" value="{{ Input::old('email') }}" />
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">密码</label>
-                    {{ $errors->first('password', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                    <input class="form-control" type="password" name="password" id="password" value="" />
-                </div>
-                
-                <div class="form-group">
-                    <label for="password_confirmation">确认密码</label>
-                    <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" value="" />
-                </div>
-
-            </div>
-
-            <!-- Meta Data tab -->
-            <div class="tab-pane" id="tab-meta-data" style="margin:0 1em;">
-                
-                <div class="form-group">
-                    <label for="meta_title">用户身份</label>
-                    {{ $errors->first('is_admin', '<span style="color:#c7254e;margin:0 1em;">:message</span>') }}
-                    <div>
-                        <input type="checkbox" name="is_admin" value="1"
-                            {{ Input::old('is_admin') ? 'checked': ''; }}
-                            data-on="danger" data-off="default" data-text-label="　　　　"
-                            data-on-label="管理员" data-off-label="普通用户">
-                    </div>
-                </div>
-
-            </div>
-
+        <div class="form-group">
+        {{ Form::label('username', '用户名') }}
+        {{ Form::text('username', '', array('class' => 'form-control')) }}
         </div>
 
-        <!-- Form actions -->
-        <div class="control-group">
-            <div class="controls">
-                <button type="reset" class="btn btn-default">清 空</button>
-                <button type="submit" class="btn btn-success">提 交</button>
-            </div>
+        <div class="form-group">
+        {{ Form::label('email', '邮件', array('class' => 'control-label')) }}
+        {{ Form::email('email', Input::old('email'), array('class' => 'form-control')) }}
         </div>
-    </form>
+        
+        <div class="form-group">
+        {{ Form::label('password', '密码', array('class' => 'control-label')) }}
+        {{ Form::password('password', array('class' => 'form-control')) }}
+        </div>
+
+        <div class="form-group">
+        {{ Form::label('password_confirmation', '密码确认') }}
+        {{ Form::password('password_confirmation', array('class' => 'form-control')) }}
+        </div>
+
+        <div class="form-group">
+          {{ Form::submit('Register', array('class' => 'btn btn-primary btn-lg btn-block')) }}
+        </div>
+
+    {{ Form::close() }}
+  
+  </div>
 
 @stop
 
-@section('end')
-    @parent
-    {{ script('bootstrap-3-switch') }}
-    <script>
-         $('input[type="checkbox"],[type="radio"]').bootstrapSwitch();
-    </script>
-@stop
+
+

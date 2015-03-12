@@ -8,17 +8,9 @@ class RegisterController extends BaseController
 {
   public function show()
   {
-    return View::make('users.register');
+    return View::make('admin.user.create');
   }
 
-  /**
-   * 显示登录页面
-   * @return View
-   */
-  public function getLogin()
-  {
-    return View::make('admin.auth.login');
-  }
 
   /**
    * POST 登录验证

@@ -39,6 +39,7 @@ class AuthController extends BaseController {
     {
       return Redirect::route('admin.login')->withErrors(array('login' => $e->getMessage()));
     }
+
   }
 
   /**

@@ -2,9 +2,34 @@
 
 @section('container')
 
-    <div style="height:30em;">
-        <h1 style="margin-top:2em; text-align:center;">后台首页</h1>
-        <p style="text-align:center;">这里是博客系统的管理员后台，负责整个博客系统的资源管理。</p>
-    </div>
+  <div id="login" class="login">
+
+    {{ Form::open(array('url' => 'admin/login', 'class' => 'am-form')) }}
+        @if ($errors->has('login'))
+          <div class="form-group has-error">
+              <label for="inputError" class="control-label">{{ $errors->first('login', ':message') }}</label>
+          </div>
+        @endif
+
+        <div class="form-group">
+        {{ Form::label('email', '邮件', array('class' => 'control-label')) }}
+        {{ Form::email('email', Input::old('email'), array('class' => 'form-control')) }}
+        </div>
+        
+        <div class="form-group">
+        {{ Form::label('password', '密码', array('class' => 'control-label')) }}
+        {{ Form::password('password', array('class' => 'form-control')) }}
+        </div>
+
+        <div class="form-group">
+          {{ Form::submit('login', array('class' => 'btn btn-primary btn-lg btn-block')) }}
+        </div>
+
+    {{ Form::close() }}
+  
+  </div>
 
 @stop
+
+
+

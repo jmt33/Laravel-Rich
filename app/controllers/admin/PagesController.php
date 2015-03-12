@@ -55,14 +55,12 @@ class PagesController extends \BaseController {
 
         if ($validation->passes())
         {
-                        $page          = Page::find($id);
-                        $page->title   = Input::get('title');
-                        $page->body    = Input::get('body');
-                        $page->user_id = Sentry::getUser()->id;
+            $page          = Page::find($id);
+            $page->title   = Input::get('title');
+            $page->body    = Input::get('body');
+            $page->user_id = Sentry::getUser()->id;
             $page->save();
-
             Notification::success('更新页面成功！');
-
             return Redirect::route('admin.pages.edit', $page->id);
         }
 

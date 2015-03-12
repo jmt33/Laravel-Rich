@@ -12,6 +12,9 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
+
+        @if (Sentry::check())
+  
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -212,12 +215,24 @@
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a href="{{ URL::route('admin.logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
         </li>
         <!-- /.dropdown -->
+        @else
+        <li>
+            <a class="dropdown-toggle" href="{{ URL::route('admin.login') }}">
+                <i class="fa fa-user fa-fw"></i> 登录
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-toggle" href="{{ URL::route('admin.register') }}">
+                <i class="fa fa-user fa-fw"></i> 注册
+            </a>
+        </li>
+        @endif
     </ul>
     <!-- /.navbar-top-links -->
 
