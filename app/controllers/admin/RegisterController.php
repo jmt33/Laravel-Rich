@@ -29,7 +29,7 @@ class RegisterController extends BaseController
             ));
 
             // Find the group using the group id
-            $adminGroup = Sentry::findGroupById(3);
+            $adminGroup = Sentry::findAllGroups()[0];
 
             // Assign the group to the user
             $user->addGroup($adminGroup);
